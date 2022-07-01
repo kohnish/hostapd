@@ -333,21 +333,21 @@ static void ieee80211n_check_scan(struct hostapd_iface *iface)
 	wpa_scan_results_free(scan_res);
 
 	iface->secondary_ch = iface->conf->secondary_channel;
-	if (!oper40) {
-		wpa_printf(MSG_INFO, "20/40 MHz operation not permitted on "
-			   "channel pri=%d sec=%d based on overlapping BSSes",
-			   iface->conf->channel,
-			   iface->conf->channel +
-			   iface->conf->secondary_channel * 4);
-		iface->conf->secondary_channel = 0;
-		if (iface->drv_flags & WPA_DRIVER_FLAGS_HT_2040_COEX) {
-			/*
-			 * TODO: Could consider scheduling another scan to check
-			 * if channel width can be changed if no coex reports
-			 * are received from associating stations.
-			 */
-		}
-	}
+	//if (!oper40) {
+	//	wpa_printf(MSG_INFO, "20/40 MHz operation not permitted on "
+	//		   "channel pri=%d sec=%d based on overlapping BSSes",
+	//		   iface->conf->channel,
+	//		   iface->conf->channel +
+	//		   iface->conf->secondary_channel * 4);
+	//	iface->conf->secondary_channel = 0;
+	//	if (iface->drv_flags & WPA_DRIVER_FLAGS_HT_2040_COEX) {
+	//		/*
+	//		 * TODO: Could consider scheduling another scan to check
+	//		 * if channel width can be changed if no coex reports
+	//		 * are received from associating stations.
+	//		 */
+	//	}
+	//}
 
 #ifdef CONFIG_IEEE80211AX
 	if (iface->conf->secondary_channel &&
@@ -807,16 +807,16 @@ static int hostapd_is_usable_chan(struct hostapd_iface *iface,
 	if (!chan)
 		return 0;
 
-	if ((primary && chan_pri_allowed(chan)) ||
-	    (!primary && !(chan->flag & HOSTAPD_CHAN_DISABLED)))
-		return 1;
+	//if ((primary && chan_pri_allowed(chan)) ||
+	//    (!primary && !(chan->flag & HOSTAPD_CHAN_DISABLED)))
+	//	return 1;
 
-	wpa_printf(MSG_INFO,
-		   "Frequency %d (%s) not allowed for AP mode, flags: 0x%x%s%s",
-		   frequency, primary ? "primary" : "secondary",
-		   chan->flag,
-		   chan->flag & HOSTAPD_CHAN_NO_IR ? " NO-IR" : "",
-		   chan->flag & HOSTAPD_CHAN_RADAR ? " RADAR" : "");
+	//wpa_printf(MSG_INFO,
+	//	   "Frequency %d (%s) not allowed for AP mode, flags: 0x%x%s%s",
+	//	   frequency, primary ? "primary" : "secondary",
+	//	   chan->flag,
+	//	   chan->flag & HOSTAPD_CHAN_NO_IR ? " NO-IR" : "",
+	//	   chan->flag & HOSTAPD_CHAN_RADAR ? " RADAR" : "");
 	return 0;
 }
 
@@ -910,7 +910,7 @@ static int hostapd_is_usable_chans(struct hostapd_iface *iface)
 	}
 	if (!hostapd_is_usable_chan(iface, pri_chan->freq, 1)) {
 		wpa_printf(MSG_ERROR, "Primary frequency not allowed");
-		return 0;
+		return 1;
 	}
 	if (!hostapd_is_usable_edmg(iface))
 		return 0;

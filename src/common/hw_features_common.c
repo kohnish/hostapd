@@ -224,11 +224,11 @@ int check_40mhz_5g(struct wpa_scan_results *scan_res,
 		else if (bss->freq == sec_chan->freq)
 			sec_bss++;
 	}
-	if (sec_bss && !pri_bss) {
-		wpa_printf(MSG_INFO,
-			   "Switch own primary and secondary channel to get secondary channel with no Beacons from other BSSes");
-		return 2;
-	}
+	//if (sec_bss && !pri_bss) {
+	//	wpa_printf(MSG_INFO,
+	//		   "Switch own primary and secondary channel to get secondary channel with no Beacons from other BSSes");
+	//	return 2;
+	//}
 
 	/*
 	 * Match PRI/SEC channel with any existing HT40 BSS on the same
@@ -245,20 +245,20 @@ int check_40mhz_5g(struct wpa_scan_results *scan_res,
 			break;
 		}
 	}
-	if (!match) {
-		for (i = 0; i < scan_res->num; i++) {
-			struct wpa_scan_res *bss = scan_res->res[i];
-			get_pri_sec_chan(bss, &bss_pri_chan, &bss_sec_chan);
-			if (pri_chan->chan == bss_sec_chan &&
-			    sec_chan->chan == bss_pri_chan) {
-				wpa_printf(MSG_INFO, "Switch own primary and "
-					   "secondary channel due to BSS "
-					   "overlap with " MACSTR,
-					   MAC2STR(bss->bssid));
-				return 2;
-			}
-		}
-	}
+	//if (!match) {
+	//	for (i = 0; i < scan_res->num; i++) {
+	//		struct wpa_scan_res *bss = scan_res->res[i];
+	//		get_pri_sec_chan(bss, &bss_pri_chan, &bss_sec_chan);
+	//		if (pri_chan->chan == bss_sec_chan &&
+	//		    sec_chan->chan == bss_pri_chan) {
+	//			wpa_printf(MSG_INFO, "Switch own primary and "
+	//				   "secondary channel due to BSS "
+	//				   "overlap with " MACSTR,
+	//				   MAC2STR(bss->bssid));
+	//			return 2;
+	//		}
+	//	}
+	//}
 
 	return 1;
 }
